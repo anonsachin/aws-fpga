@@ -26,18 +26,18 @@ module cl_adder_peek_poke_test();
       addr = 63'd0;
       tb.poke_ocl(.addr(addr), .data(32'd1));
 
-      #30ns;
+      #60ns;
       tb.peek_ocl(.addr(addr), .data(read_data));
       compare_values(.act_data(read_data), .exp_data(64'd1), .addr(addr));
 
       addr = 63'd1 << 2;
       tb.poke_ocl(.addr(addr), .data(32'd2));
 
-      #30ns;
+      #60ns;
       tb.peek_ocl(.addr(addr), .data(read_data));
       compare_values(.act_data(read_data), .exp_data(64'd2), .addr(addr));
 
-      #30ns;
+      #60ns;
       addr = 63'd2 << 2;
       tb.peek_ocl(.addr(addr), .data(read_data));
       compare_values(.act_data(read_data), .exp_data(64'd3), .addr(addr));

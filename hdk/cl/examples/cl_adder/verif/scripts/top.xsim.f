@@ -28,7 +28,7 @@
 -include $CL_DIR/design/
 
 $CL_DIR/design/cl_adder.sv
-$CL_DIR/design/cl_id_defines.vh
+$CL_DIR/design/axil_adder.sv
 
 ##### END AUTO-GENERATE ######
 ##############################
