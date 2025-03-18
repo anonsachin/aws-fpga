@@ -27,7 +27,7 @@ module axil_adder (
   output logic  [31:0]  axil_rdata,
   output logic   [1:0]  axil_rresp,
   output logic          axil_rvalid,
-  input  logic          axil_rready,
+  input  logic          axil_rready
 );
 
 ///////////////////////////////////////////////////////////////////////////
