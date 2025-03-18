@@ -21,5 +21,5 @@ cl_adder_base_test: TEST=cl_adder_base_test
 cl_adder_base_test: all
 
 # Add additional tests here that are located in the $CL_DIR/verif/tests directory
-module_cl_adder_peek_poke_test: TEST=module_cl_adder_peek_poke_test
-module_cl_adder_peek_poke_test: all
+cl_adder_peek_poke_test: TEST=cl_adder_peek_poke_test
+cl_adder_peek_poke_test: all
