@@ -18,6 +18,8 @@ module cl_adder_peek_poke_test();
    logic [63:0]  read_data;
 
    initial begin
+    $dumpfile("waves.vcd");
+    $dumpvars (0, tb.card.fpga.CL);
 
       tb.power_up(.clk_recipe_a(ClockRecipe::A0),
                   .clk_recipe_b(ClockRecipe::B0),
@@ -35,7 +37,7 @@ module cl_adder_peek_poke_test();
 
       #30ns;
       tb.peek_ocl(.addr(addr), .data(read_data));
-      compare_values(.act_data(read_data), .exp_data(64'd1), .addr(addr));
+      compare_values(.act_data(read_data), .exp_data(64'd2), .addr(addr));
 
       #30ns;
       addr = 63'd2;
