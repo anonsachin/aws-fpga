@@ -22,6 +22,8 @@ module cl_adder_base_test();
    import tb_type_defines_pkg::*;
 
    initial begin
+      $dumpfile("prot.vcd");
+      $dumpvars (0, tb.card.fpga.sh.axl_pc_ocl_slv_inst);
 
       tb.power_up(.clk_recipe_a(ClockRecipe::A0),
                   .clk_recipe_b(ClockRecipe::B0),

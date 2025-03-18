@@ -105,12 +105,46 @@ end
 ///////////////////////////////////////////////////////////////////////////
 // write response
 ///////////////////////////////////////////////////////////////////////////
+typedef enum logic [1:0] { 
+  WAITING_FOR_DATA,
+  WRITING_DATA,
+  SEND_RESP
+ } RespState;
+
+RespState current_state, next_state;
+
+always_ff @ (posedge clk)
+begin
+if(resetn)
+begin
+  current_state <= next_state;
+end
+else
+begin
+  current_state <= WAITING_FOR_DATA;
+end
+end
+
+always_comb begin
+  case (current_state)
+    WAITING_FOR_DATA:
+      next_state = axil_wvalid ? WRITING_DATA : WAITING_FOR_DATA;
+    WRITING_DATA:
+      next_state = axil_wvalid ? WRITING_DATA : SEND_RESP;
+    SEND_RESP:
+      next_state = axil_bready ? WAITING_FOR_DATA : SEND_RESP;
+    default: begin
+      next_state = WAITING_FOR_DATA;
+    end
+  endcase
+end
+
 assign axil_bresp = 0;
 always_ff @ (posedge clk)
 begin
 if(resetn)
 begin
-  axil_bvalid <= axil_bready;
+  axil_bvalid <= current_state == SEND_RESP;
 end
 else
 begin
