@@ -154,7 +154,7 @@ axil_adder AXIL_ADDER (
   .axil_rdata(cl_ocl_rdata),
   .axil_rresp(cl_ocl_rresp),
   .axil_rvalid(cl_ocl_rvalid),
-  .axil_rready(ocl_cl_rready),
+  .axil_rready(ocl_cl_rready)
 );
 //=============================================================================
 // SDA
