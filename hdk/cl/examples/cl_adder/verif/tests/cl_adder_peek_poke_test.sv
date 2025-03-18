@@ -11,7 +11,7 @@ task compare_values(logic [63:0] act_data, exp_data, logic [63:0] addr);
    end
 endtask
 
-module cl_adder_base_test();
+module cl_adder_peek_poke_test();
    import tb_type_defines_pkg::*;
 
    logic [63:0]  addr;
