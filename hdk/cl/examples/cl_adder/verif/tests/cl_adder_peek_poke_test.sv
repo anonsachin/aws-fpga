@@ -21,9 +21,7 @@ module cl_adder_peek_poke_test();
     $dumpfile("waves.vcd");
     $dumpvars (0, tb.card.fpga.CL);
 
-      tb.power_up(.clk_recipe_a(ClockRecipe::A0),
-                  .clk_recipe_b(ClockRecipe::B0),
-                  .clk_recipe_c(ClockRecipe::C0));
+      tb.power_up();
       
       addr = 63'd0;
       tb.poke_ocl(.addr(addr), .data(32'd1));
@@ -32,7 +30,7 @@ module cl_adder_peek_poke_test();
       tb.peek_ocl(.addr(addr), .data(read_data));
       compare_values(.act_data(read_data), .exp_data(64'd1), .addr(addr));
 
-      addr = 63'd1;
+      addr = 63'd1 << 2;
       tb.poke_ocl(.addr(addr), .data(32'd2));
 
       #30ns;
@@ -40,7 +38,7 @@ module cl_adder_peek_poke_test();
       compare_values(.act_data(read_data), .exp_data(64'd2), .addr(addr));
 
       #30ns;
-      addr = 63'd2;
+      addr = 63'd2 << 2;
       tb.peek_ocl(.addr(addr), .data(read_data));
       compare_values(.act_data(read_data), .exp_data(64'd3), .addr(addr));
 

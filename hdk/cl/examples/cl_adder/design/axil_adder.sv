@@ -159,7 +159,7 @@ begin
   if (axil_rready)
   begin
      axil_rvalid <= 1;
-     if (mask_enable)
+     if (read_mask_enable)
       axil_rdata <= 0;
      else
      begin
