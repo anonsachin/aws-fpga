@@ -128,13 +128,14 @@ assign result = operand_1 + operand_2;
 // reading operands and result
 ///////////////////////////////////////////////////////////////////////////
 logic [1:0] read_addr;
-logic read_mask_enable;
+logic read_mask_enable, read_enable;
 assign axil_arready = 1;
 
 always_ff @ (posedge clk)
 begin
 if(resetn)
 begin
+  read_enable <= axil_arvalid;
     if(axil_arvalid)
     begin
         read_mask_enable <= | axil_araddr[31:4];
@@ -143,6 +144,7 @@ begin
 end
 else
 begin
+  read_enable <= 0;
   read_mask_enable <= 0;
   read_addr <= 0;
 end
@@ -156,9 +158,9 @@ always_ff @ (posedge clk)
 begin
 if(resetn)
 begin
-  if (axil_rready)
+  if (read_enable)
   begin
-     axil_rvalid <= 1;
+     axil_rvalid <= ~read_mask_enable;
      if (read_mask_enable)
       axil_rdata <= 0;
      else
@@ -175,10 +177,13 @@ begin
       endcase
      end
   end
-  else
+  else 
   begin
-    axil_rdata <= 0;
-    axil_rvalid <= 0;
+    axil_rdata <= axil_rdata;
+    if(axil_rready)
+      axil_rvalid <= 0;
+    else
+      axil_rvalid <= axil_rvalid;
   end
 end
 else
