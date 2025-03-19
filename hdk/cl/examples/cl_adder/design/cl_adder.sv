@@ -128,35 +128,34 @@ module cl_adder
 // OCL
 //=============================================================================
 
-// axil_adder AXIL_ADDER (
-//   .clk(clk_main_a0),
-//   .resetn(rst_main_n),
-//   // write addr
-//   .axil_awaddr(ocl_cl_awaddr),
-//   .axil_awuser(ocl_cl_awuser),
-//   .axil_awvalid(ocl_cl_awvalid),
-//   .axil_awready(cl_ocl_awready),
-//   // write data
-//   .axil_wdata(ocl_cl_wdata),
-//   .axil_wstrb(ocl_cl_wstrb),
-//   .axil_wvalid(ocl_cl_wvalid),
-//   .axil_wready(cl_ocl_wready),
-//   // write resp
-//   .axil_bresp(cl_ocl_bresp),
-//   .axil_bvalid(cl_ocl_bvalid),
-//   .axil_bready(ocl_cl_bready),
-//   // read addr
-//   .axil_araddr(ocl_cl_araddr),
-//   .axil_aruser(ocl_cl_aruser),
-//   .axil_arvalid(ocl_cl_arvalid),
-//   .axil_arready(cl_ocl_arready),
-//   // read data
-//   .axil_rdata(cl_ocl_rdata),
-//   .axil_rresp(cl_ocl_rresp),
-//   .axil_rvalid(cl_ocl_rvalid),
-//   .axil_rready(ocl_cl_rready)
-// );
-`include "unused_sh_ocl_template.inc"
+axil_adder AXIL_ADDER (
+  .clk(clk_main_a0),
+  .resetn(rst_main_n),
+  // write addr
+  .axil_awaddr(ocl_cl_awaddr),
+  .axil_awuser(ocl_cl_awuser),
+  .axil_awvalid(ocl_cl_awvalid),
+  .axil_awready(cl_ocl_awready),
+  // write data
+  .axil_wdata(ocl_cl_wdata),
+  .axil_wstrb(ocl_cl_wstrb),
+  .axil_wvalid(ocl_cl_wvalid),
+  .axil_wready(cl_ocl_wready),
+  // write resp
+  .axil_bresp(cl_ocl_bresp),
+  .axil_bvalid(cl_ocl_bvalid),
+  .axil_bready(ocl_cl_bready),
+  // read addr
+  .axil_araddr(ocl_cl_araddr),
+  .axil_aruser(ocl_cl_aruser),
+  .axil_arvalid(ocl_cl_arvalid),
+  .axil_arready(cl_ocl_arready),
+  // read data
+  .axil_rdata(cl_ocl_rdata),
+  .axil_rresp(cl_ocl_rresp),
+  .axil_rvalid(cl_ocl_rvalid),
+  .axil_rready(ocl_cl_rready)
+);
 //=============================================================================
 // SDA
 //=============================================================================
