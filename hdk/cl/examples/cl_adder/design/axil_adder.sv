@@ -50,7 +50,7 @@ if(resetn)
 begin
     if(axil_awvalid)
     begin
-        mask_enable <= | axil_awaddr[31:4];
+        mask_enable <= 0;//| axil_awaddr[31:4];
         write_addr <= axil_awaddr[3:2];
     end
 end
@@ -172,7 +172,7 @@ begin
   read_enable <= axil_arvalid;
     if(axil_arvalid)
     begin
-        read_mask_enable <= | axil_araddr[31:4];
+        read_mask_enable <= 0;//| axil_araddr[31:4];
         read_addr <= axil_araddr[3:2];
     end
 end
