@@ -1,0 +1,13 @@
+diff --cc hdk/cl/examples/cl_adder/verif/tests/cl_adder_base_test.sv
+index fe03782,c65eef7..0000000
+--- a/hdk/cl/examples/cl_adder/verif/tests/cl_adder_base_test.sv
++++ b/hdk/cl/examples/cl_adder/verif/tests/cl_adder_base_test.sv
+@@@ -24,7 -24,6 +24,7 @@@ module cl_adder_base_test()
+     initial begin
+        $dumpfile("prot.vcd");
+        $dumpvars (0, tb.card.fpga.sh.axl_pc_ocl_slv_inst);
+- 
+++      
+        tb.power_up(.clk_recipe_a(ClockRecipe::A0),
+                    .clk_recipe_b(ClockRecipe::B0),
+                    .clk_recipe_c(ClockRecipe::C0));
