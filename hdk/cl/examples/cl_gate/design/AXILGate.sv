@@ -174,7 +174,7 @@ SimpleCounter #(
 ) sample_pass_count (
   .clk(clk),
   .resetn(resetn & reset_func & (&config_loaded)),
-  .enable(&comparator_output),
+  .enable((&comparator_output) & done ),
   .count(count)
 );
 
