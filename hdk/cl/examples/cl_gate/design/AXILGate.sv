@@ -156,7 +156,9 @@ end
 genvar k;
 for ( k=0; k<NUMBER_OF_STAGES; k++) 
 begin
-AXISComparator comparator (
+AXISComparatorNoReadyHandling #(
+  .NAME(i)
+) comparator (
   .clk(clk),
   .resetn(resetn),
   .in1(gate_input[NUMBER_OF_GATES][k]),
