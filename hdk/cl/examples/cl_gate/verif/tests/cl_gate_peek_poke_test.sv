@@ -11,7 +11,7 @@ task compare_values(logic [63:0] act_data, exp_data, logic [63:0] addr);
 endtask
 
 module cl_gate_peek_poke_test();
-   import tb_type_defines_pkg::cl_gate_peek_poke_test*;
+   import tb_type_defines_pkg::*;
 
    logic [63:0]  addr;
    logic [63:0]  read_data;
