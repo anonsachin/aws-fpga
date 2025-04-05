@@ -53,9 +53,17 @@ module cl_gate_peek_poke_test();
 
       #60ns;
       tb.peek_ocl(.addr(addr), .data(read_data));
-      compare_values(.act_data(read_data), .exp_data(64'd3), .addr(addr));
-
+      compare_values(.act_data(read_data), .exp_data(64'd7), .addr(addr));
+      $display("Waiting for test to be done.");
       #1500ns;
+      tb.peek_ocl(.addr(addr), .data(read_data));
+      while (read_data[3] == 0) begin
+        $display("Still waiting for test to be done.");
+        #400ns;
+        $display("Waited for 400 more ns.");
+      end
+
+      #10ns;
       tb.power_down();
 
       report_pass_fail_status();
