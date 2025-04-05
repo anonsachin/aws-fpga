@@ -37,6 +37,8 @@ module cl_gate_peek_poke_test();
       agent_confgs[1].cSelect = 4'd1;
       agent_confgs[1].bSelect = 4'd2;
       agent_confgs[1].aSelect = 4'd8;
+
+      #30ns;
       
       addr = 63'd0;
       tb.poke_ocl(.addr(addr), .data(store.data[0]));
