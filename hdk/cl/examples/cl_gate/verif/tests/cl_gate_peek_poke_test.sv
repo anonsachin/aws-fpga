@@ -27,6 +27,16 @@ module cl_gate_peek_poke_test();
     $dumpvars (0, tb.card.fpga.CL);
 
       tb.power_up();
+
+      agent_confgs[0].gateSelect = 4'd4;
+      agent_confgs[0].cSelect = 4'd1;
+      agent_confgs[0].bSelect = 4'd2;
+      agent_confgs[0].aSelect = 4'd8;
+
+      agent_confgs[1].gateSelect = 4'd4;
+      agent_confgs[1].cSelect = 4'd1;
+      agent_confgs[1].bSelect = 4'd2;
+      agent_confgs[1].aSelect = 4'd8;
       
       addr = 63'd0;
       tb.poke_ocl(.addr(addr), .data(store.data[0]));
