@@ -71,7 +71,7 @@ if(resetn)
 begin
     if(axil_awvalid)
     begin
-        mask_disable <= ~(axil_awaddr >= START_OFFSET & (axil_awaddr <= (START_OFFSET + ((CONFIG_SIZE + 2) <<2))));
+        mask_disable <= 0;//~(axil_awaddr >= START_OFFSET & (axil_awaddr <= (START_OFFSET + ((CONFIG_SIZE + 2) <<2))));
         write_addr <= axil_awaddr[2+:$clog2(CONFIG_SIZE + 2)];
     end
 end
@@ -187,7 +187,7 @@ begin
   read_enable <= axil_arvalid;
     if(axil_arvalid)
     begin
-        read_mask_disable <= ~(axil_awaddr > START_OFFSET & (axil_awaddr < (START_OFFSET + ((CONFIG_SIZE + 2) <<2))));
+        read_mask_disable <= 0;//~(axil_awaddr > START_OFFSET & (axil_awaddr < (START_OFFSET + ((CONFIG_SIZE + 2) <<2))));
         read_addr <= axil_araddr[2+:$clog2(CONFIG_SIZE + 2)];
     end
 end
