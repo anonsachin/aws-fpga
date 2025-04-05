@@ -157,7 +157,7 @@ genvar k;
 for ( k=0; k<NUMBER_OF_STAGES; k++) 
 begin
 AXISComparatorNoReadyHandling #(
-  .NAME(i)
+  .NAME($sformatf("Input: %0d", k))
 ) comparator (
   .clk(clk),
   .resetn(resetn),
