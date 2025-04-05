@@ -39,7 +39,8 @@ module cl_gate_peek_poke_test();
       agent_confgs[1].aSelect = 4'd8;
 
       #30ns;
-      
+       $display("[%t]: Data config 1:%0h <==> ata config 2: %0h", $realtime, store.configValue[0], store.configValue[1]);
+
       addr = 63'd0;
       tb.poke_ocl(.addr(addr), .data(store.data[0]));
 
