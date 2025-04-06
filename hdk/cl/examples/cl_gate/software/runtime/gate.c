@@ -56,8 +56,11 @@ int main()
     count = map_base + 2;
 
     // assign the values
-    *map_base = gateConfigStore.data;
+    unsigned int config = 8 | (2 << 4) | (1 << 8) | (4 << 12);
+    // *map_base = gateConfigStore.data;
+    *map_base = config | config << 16;
     printf("[INFO]current internal signals %u  \n",*results);
+    goto clean_up;
     *results = 3;
     printf("[INFO]current internal signals after enabling config and reset ->  %u  \n",*results);
    
