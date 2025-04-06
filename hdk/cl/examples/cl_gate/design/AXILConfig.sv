@@ -5,6 +5,7 @@ module AXILConfigStore #(
     type store_type = AXILitePkg::GateConfigStore,
     type config_type = AgentPkg::GateConfig,
     parameter NUMBER_OF_GATES = AXILitePkg::NUMBER_OF_GATES,
+    parameter NUMBER_OF_STAGES = 8, 
     // Addresses are always interms of bytes
     parameter CONFIG_SIZE = AXILitePkg::NUMBER_OF_WORDS,
     parameter START_OFFSET = 32'd0
@@ -19,6 +20,7 @@ module AXILConfigStore #(
   output config_type configs [0:NUMBER_OF_GATES - 1],
   input wire done,
   input wire equal,
+  input wire [NUMBER_OF_STAGES - 1:0] comparator_outputs,
   input wire [31:0] count,
 
 // Axi ports
@@ -61,7 +63,8 @@ end
 ///////////////////////////////////////////////////////////////////////////
 // writing operands
 ///////////////////////////////////////////////////////////////////////////
-logic [$clog2(CONFIG_SIZE + 2) -1:0] write_addr;
+localparam TOTAL_REGISTER = CONFIG_SIZE + 2;
+logic [$clog2(TOTAL_REGISTER) -1:0] write_addr;
 logic mask_disable;
 assign axil_awready = 1;
 
@@ -71,8 +74,8 @@ if(resetn)
 begin
     if(axil_awvalid)
     begin
-        mask_disable <= 0;//~(axil_awaddr >= START_OFFSET & (axil_awaddr <= (START_OFFSET + ((CONFIG_SIZE + 2) <<2))));
-        write_addr <= axil_awaddr[2+:$clog2(CONFIG_SIZE + 2)];
+        mask_disable <= 0;//~(axil_awaddr >= START_OFFSET & (axil_awaddr <= (START_OFFSET + ((TOTAL_REGISTER) <<2))));
+        write_addr <= axil_awaddr[2+:$clog2(TOTAL_REGISTER)];
     end
 end
 else
@@ -176,7 +179,7 @@ end
 ///////////////////////////////////////////////////////////////////////////
 // reading operands and result
 ///////////////////////////////////////////////////////////////////////////
-logic [$clog2(CONFIG_SIZE + 2) - 1:0] read_addr;
+logic [$clog2(TOTAL_REGISTER) - 1:0] read_addr;
 logic read_mask_disable, read_enable;
 assign axil_arready = 1;
 
@@ -187,8 +190,8 @@ begin
   read_enable <= axil_arvalid;
     if(axil_arvalid)
     begin
-        read_mask_disable <= 0;//~(axil_awaddr > START_OFFSET & (axil_awaddr < (START_OFFSET + ((CONFIG_SIZE + 2) <<2))));
-        read_addr <= axil_araddr[2+:$clog2(CONFIG_SIZE + 2)];
+        read_mask_disable <= 0;//~(axil_awaddr > START_OFFSET & (axil_awaddr < (START_OFFSET + ((TOTAL_REGISTER) <<2))));
+        read_addr <= axil_araddr[2+:$clog2(TOTAL_REGISTER)];
     end
 end
 else
@@ -217,7 +220,7 @@ begin
       if (read_addr < CONFIG_SIZE)
          axil_rdata <= data.data[read_addr];
       else if (read_addr == CONFIG_SIZE) begin
-         axil_rdata <= {28*{1'b0},{done,equal,reset_func,validConfig}};
+         axil_rdata <= {20*{1'b0},{comparator_outputs,done,equal,reset_func,validConfig}};
       end
       else begin
          axil_rdata <= count;

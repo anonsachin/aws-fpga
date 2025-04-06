@@ -43,6 +43,7 @@ logic validConfig, reset_func, done, equal;
 logic [0:NUMBER_OF_GATES - 1] config_loaded;
 logic [NUMBER_OF_STAGES - 1:0] counters_done;
 logic [NUMBER_OF_STAGES - 1:0] comparator_output;
+logic [NUMBER_OF_STAGES - 1:0] gate_inp_valids;
 logic [31:0] count;
 
 assign done = &counters_done;
@@ -58,6 +59,7 @@ AXILConfigStore #(
     .store_type(AXILitePkg::GateConfigStore),
     .config_type(AgentPkg::GateConfig),
     .NUMBER_OF_GATES(NUMBER_OF_GATES),
+    .NUMBER_OF_STAGES(NUMBER_OF_STAGES),
     // Addresses are always interms of bytes
     .CONFIG_SIZE(AXILitePkg::NUMBER_OF_WORDS),
     .START_OFFSET(32'd0)
@@ -153,14 +155,19 @@ end
 /////////////////////////////////////////////////////////////////////////
 // Comparators
 /////////////////////////////////////////////////////////////////////////
+
+
 genvar k;
 for ( k=0; k<NUMBER_OF_STAGES; k++) 
 begin
+
+assign gate_inp_valids[k] = gate_input[NUMBER_OF_GATES][k].valid & passthrough[NUMBER_OF_GATES][k].valid;
+
 AXISComparatorNoReadyHandling #(
   .NAME($sformatf("Input: %0d", k))
 ) comparator (
   .clk(clk),
-  .resetn(resetn),
+  .resetn(resetn & reset_func),
   .in1(gate_input[NUMBER_OF_GATES][k]),
   .in2(passthrough[NUMBER_OF_GATES][k]),
   .lastReached(),
@@ -174,7 +181,7 @@ SimpleCounter #(
 ) sample_pass_count (
   .clk(clk),
   .resetn(resetn & reset_func & (&config_loaded)),
-  .enable((&comparator_output) & done ),
+  .enable((&comparator_output) & (&gate_inp_valids) ),
   .count(count)
 );
 
