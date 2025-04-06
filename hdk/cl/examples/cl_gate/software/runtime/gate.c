@@ -60,7 +60,9 @@ int main()
     // *map_base = gateConfigStore.data;
     *map_base = config | config << 16;
     printf("[INFO]current internal signals %u  \n",*results);
-    goto clean_up;
+    printf("[INFO]current internal counter %u  \n",*count);
+    //Resetting between calls
+    *results = 0;
     *results = 3;
     printf("[INFO]current internal signals after enabling config and reset ->  %u  \n",*results);
    
@@ -72,7 +74,7 @@ int main()
 
    do {
    sleep(1);
-   if (*results == 15) {
+   if (*results == 4095) {
     printf("Great the result has the desired value at %d (count): The counter value in hardware =>[%d] \n",counter, *count);
     goto clean_up;
    }
