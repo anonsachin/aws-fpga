@@ -53,7 +53,7 @@ module cl_gate_peek_poke_test();
 
       #60ns;
       tb.peek_ocl(.addr(addr), .data(read_data));
-      compare_values(.act_data(read_data), .exp_data(64'd7), .addr(addr));
+      compare_values(.act_data(read_data), .exp_data(64'd4087), .addr(addr));
       $display("Waiting for test to be done.");
       #1500ns;
       tb.peek_ocl(.addr(addr), .data(read_data));
@@ -63,7 +63,7 @@ module cl_gate_peek_poke_test();
         tb.peek_ocl(.addr(addr), .data(read_data));
         $display("Waited for 400 more ns.");
       end
-      compare_values(.act_data(read_data), .exp_data(64'd15), .addr(addr));
+      compare_values(.act_data(read_data), .exp_data(64'd4095), .addr(addr));
 
       #10ns;
       tb.power_down();
