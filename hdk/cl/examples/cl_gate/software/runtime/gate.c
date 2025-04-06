@@ -57,6 +57,9 @@ int main()
 
     // assign the values
     *map_base = gateConfigStore.data;
+    printf("[INFO]current internal signals %u  \n",*results);
+    *results = 3;
+    printf("[INFO]current internal signals after enabling config and reset ->  %u  \n",*results);
    
 
     printf("[INFO] The configs are [%x]%d = %d\n", (unsigned int)map_base, *map_base, gateConfigStore.data);
