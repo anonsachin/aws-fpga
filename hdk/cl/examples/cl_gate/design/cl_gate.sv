@@ -127,8 +127,10 @@ module cl_gate
 //=============================================================================
 // OCL
 //=============================================================================
-
-  AXILGate AXIL_Gate (
+localparam ENABLE_ILA = 1;
+  AXILGate #(
+    .ENABLE_ILA(ENABLE_ILA)
+  ) AXIL_Gate (
   .clk(clk_main_a0),
   .resetn(rst_main_n),
   // write addr
@@ -197,11 +199,33 @@ module cl_gate
 //=============================================================================
 // VIRTUAL JTAG
 //=============================================================================
-
+if (ENABLE_ILA == 1)
+begin
+//----------------------------
+// Debug bridge
+//----------------------------
+ cl_debug_bridge CL_DEBUG_BRIDGE (
+      .clk(clk_main_a0),
+      .S_BSCAN_drck(drck),
+      .S_BSCAN_shift(shift),
+      .S_BSCAN_tdi(tdi),
+      .S_BSCAN_update(update),
+      .S_BSCAN_sel(sel),
+      .S_BSCAN_tdo(tdo),
+      .S_BSCAN_tms(tms),
+      .S_BSCAN_tck(tck),
+      .S_BSCAN_runtest(runtest),
+      .S_BSCAN_reset(reset),
+      .S_BSCAN_capture(capture),
+      .S_BSCAN_bscanid_en(bscanid_en)
+   );
+end
+else
+begin
   always_comb begin
     tdo = 'b0;
   end
-
+end
 //=============================================================================
 // HBM MONITOR IO
 //=============================================================================

@@ -80,8 +80,8 @@ print "Reading CL IP blocks"
 # read_ip ${HDK_IP_SRC_DIR}/pcie_bridge_ep/pcie_bridge_ep.xci
 
 ## Read IP for virtual jtag / ILA/VIO
-# read_ip ${HDK_IP_SRC_DIR}/cl_debug_bridge/cl_debug_bridge.xci
-# read_ip ${HDK_IP_SRC_DIR}/ila_1/ila_1.xci
+read_ip ${HDK_IP_SRC_DIR}/cl_debug_bridge/cl_debug_bridge.xci
+read_ip ${HDK_IP_SRC_DIR}/ila_1/ila_1.xci
 # read_ip ${HDK_IP_SRC_DIR}/ila_vio_counter/ila_vio_counter.xci
 # read_ip ${HDK_IP_SRC_DIR}/vio_0/vio_0.xci
 # read_ip ${HDK_IP_SRC_DIR}/ila_c2c/ila_c2c.xci
