@@ -41,30 +41,30 @@ module cl_agent_config_test();
     
 
     // Reference gate configurations
-      agent_confgs[0].gateSelect = 4'd2;
-      agent_confgs[0].cSelect = 4'd1;
-      agent_confgs[0].bSelect = 4'd2;
-      agent_confgs[0].aSelect = 4'd8;
+      agent_configs[0].gateSelect = 4'd2;
+      agent_configs[0].cSelect = 4'd1;
+      agent_configs[0].bSelect = 4'd2;
+      agent_configs[0].aSelect = 4'd8;
 
-      agent_confgs[1].gateSelect = 4'd3;
-      agent_confgs[1].cSelect = 4'd3;
-      agent_confgs[1].bSelect = 4'd4;
-      agent_confgs[1].aSelect = 4'd9;
+      agent_configs[1].gateSelect = 4'd3;
+      agent_configs[1].cSelect = 4'd3;
+      agent_configs[1].bSelect = 4'd4;
+      agent_configs[1].aSelect = 4'd9;
 
-      agent_confgs[2].gateSelect = 4'd9;
-      agent_confgs[2].cSelect = 4'd5;
-      agent_confgs[2].bSelect = 4'd6;
-      agent_confgs[2].aSelect = 4'd10;
+      agent_configs[2].gateSelect = 4'd9;
+      agent_configs[2].cSelect = 4'd5;
+      agent_configs[2].bSelect = 4'd6;
+      agent_configs[2].aSelect = 4'd10;
 
-      agent_confgs[3].gateSelect = 4'd6;
-      agent_confgs[3].cSelect = 4'd7;
-      agent_confgs[3].bSelect = 4'd8;
-      agent_confgs[3].aSelect = 4'd0;
+      agent_configs[3].gateSelect = 4'd6;
+      agent_configs[3].cSelect = 4'd7;
+      agent_configs[3].bSelect = 4'd8;
+      agent_configs[3].aSelect = 4'd0;
 
-      agent_confgs[4].gateSelect = 4'd5;
-      agent_confgs[4].cSelect = 4'd3;
-      agent_confgs[4].bSelect = 4'd7;
-      agent_confgs[4].aSelect = 4'd2;
+      agent_configs[4].gateSelect = 4'd5;
+      agent_configs[4].cSelect = 4'd3;
+      agent_configs[4].bSelect = 4'd7;
+      agent_configs[4].aSelect = 4'd2;
 
       store_write.configValue.configValue.gateConfigs[0] = agent_configs[0];
       store_write.configValue.configValue.gateConfigs[1] = agent_configs[1];
