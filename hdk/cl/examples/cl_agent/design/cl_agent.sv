@@ -14,7 +14,9 @@
 // implied. See the License for the specific language governing permissions and
 // limitations under the License.
 // ============================================================================
-
+`include "AgentTypes.sv"
+`include "ShuffleTypes.sv"
+`include "SoftwareInterfaceTypes.sv"
 
 //====================================================================================
 // Top level module file for cl_agent
