@@ -5,7 +5,7 @@
 #include <sys/mman.h>
 #include <stdint.h>
 
-struct GateConfig {
+struct GateConfig __attribute__((packed)) {
     unsigned int aSelect : 4;
     unsigned int bSelect : 4;
     unsigned int cSelect : 4;
