@@ -22,7 +22,8 @@ module cl_agent_base_test();
    import tb_type_defines_pkg::*;
 
    initial begin
-
+      $dumpfile("base.vcd");
+      $dumpvars (0, tb.card.fpga.CL);
       tb.power_up(.clk_recipe_a(ClockRecipe::A0),
                   .clk_recipe_b(ClockRecipe::B0),
                   .clk_recipe_c(ClockRecipe::C0));
