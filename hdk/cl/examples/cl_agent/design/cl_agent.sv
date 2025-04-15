@@ -245,3 +245,32 @@ module cl_agent
   end
 
 endmodule // cl_agent
+
+
+module Counter #(
+  parameter COUNTER_WIDTH = 8
+) (
+  input wire clk,
+  input wire resetn,
+  input wire enable,
+  output logic [COUNTER_WIDTH - 1:0] count
+);
+
+logic [COUNTER_WIDTH :0] counter;
+always_ff @ (posedge clk)
+begin
+if(resetn)
+begin
+  if (enable)
+    counter <= counter + 1;
+end
+else
+begin
+  counter <= 0;
+end
+end
+
+assign count = counter[COUNTER_WIDTH - 1:0];
+
+
+endmodule// module Counter
