@@ -15,7 +15,7 @@
 // limitations under the License.
 // ============================================================================
 `include "AgentTypes.sv"
-`include "ShuffleTypes.sv"
+//`include "ShuffleTypes.sv"
 `include "SoftwareInterfaceTypes.sv"
 
 //====================================================================================
@@ -274,3 +274,39 @@ assign count = counter[COUNTER_WIDTH - 1:0];
 
 
 endmodule// module Counter
+
+
+module CounterWithLimit #(
+  parameter COUNTER_WIDTH = 8,
+  parameter LIMIT = 10
+) (
+  input wire clk,
+  input wire resetn,
+  input wire enable,
+  output logic [COUNTER_WIDTH - 1:0] count
+);
+
+logic [COUNTER_WIDTH :0] counter, next_count;
+assign next_count = counter + 1;
+always_ff @ (posedge clk)
+begin
+if(resetn)
+begin
+  if (enable)
+  begin
+    if (next_count < LIMIT)
+      counter <= next_count;
+    else
+      counter <= 0;
+  end
+end
+else
+begin
+  counter <= 0;
+end
+end
+
+assign count = counter[COUNTER_WIDTH - 1:0];
+
+
+endmodule// module CounterWithLimit
