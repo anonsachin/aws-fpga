@@ -127,25 +127,34 @@ module cl_agent
 //=============================================================================
 // OCL
 //=============================================================================
-
-  // Cause Protocol Violations
-  always_comb begin
-    cl_ocl_bresp   = 'b0;
-    cl_ocl_rresp   = 'b0;
-    cl_ocl_rvalid  = 'b0;
-  end
-
-  // Remaining CL Output Ports
-  always_comb begin
-    cl_ocl_awready = 'b0;
-    cl_ocl_wready  = 'b0;
-
-    cl_ocl_bvalid = 'b0;
-
-    cl_ocl_arready = 'b0;
-
-    cl_ocl_rdata   = 'b0;
-  end
+  AXILAgent  AXIL_Agent (
+  .clk(clk_main_a0),
+  .resetn(rst_main_n),
+  // write addr
+  .axil_awaddr(ocl_cl_awaddr),
+  .axil_awuser(ocl_cl_awuser),
+  .axil_awvalid(ocl_cl_awvalid),
+  .axil_awready(cl_ocl_awready),
+  // write data
+  .axil_wdata(ocl_cl_wdata),
+  .axil_wstrb(ocl_cl_wstrb),
+  .axil_wvalid(ocl_cl_wvalid),
+  .axil_wready(cl_ocl_wready),
+  // write resp
+  .axil_bresp(cl_ocl_bresp),
+  .axil_bvalid(cl_ocl_bvalid),
+  .axil_bready(ocl_cl_bready),
+  // read addr
+  .axil_araddr(ocl_cl_araddr),
+  .axil_aruser(ocl_cl_aruser),
+  .axil_arvalid(ocl_cl_arvalid),
+  .axil_arready(cl_ocl_arready),
+  // read data
+  .axil_rdata(cl_ocl_rdata),
+  .axil_rresp(cl_ocl_rresp),
+  .axil_rvalid(cl_ocl_rvalid),
+  .axil_rready(ocl_cl_rready)
+);
 
 //=============================================================================
 // SDA
@@ -173,80 +182,8 @@ module cl_agent
 //=============================================================================
 // SH_DDR
 //=============================================================================
-
-   sh_ddr
-     #(
-       .DDR_PRESENT (EN_DDR)
-       )
-   SH_DDR
-     (
-      .clk                       (clk_main_a0 ),
-      .rst_n                     (            ),
-      .stat_clk                  (clk_main_a0 ),
-      .stat_rst_n                (            ),
-      .CLK_DIMM_DP               (CLK_DIMM_DP ),
-      .CLK_DIMM_DN               (CLK_DIMM_DN ),
-      .M_ACT_N                   (M_ACT_N     ),
-      .M_MA                      (M_MA        ),
-      .M_BA                      (M_BA        ),
-      .M_BG                      (M_BG        ),
-      .M_CKE                     (M_CKE       ),
-      .M_ODT                     (M_ODT       ),
-      .M_CS_N                    (M_CS_N      ),
-      .M_CLK_DN                  (M_CLK_DN    ),
-      .M_CLK_DP                  (M_CLK_DP    ),
-      .M_PAR                     (M_PAR       ),
-      .M_DQ                      (M_DQ        ),
-      .M_ECC                     (M_ECC       ),
-      .M_DQS_DP                  (M_DQS_DP    ),
-      .M_DQS_DN                  (M_DQS_DN    ),
-      .cl_RST_DIMM_N             (RST_DIMM_N  ),
-      .cl_sh_ddr_axi_awid        (            ),
-      .cl_sh_ddr_axi_awaddr      (            ),
-      .cl_sh_ddr_axi_awlen       (            ),
-      .cl_sh_ddr_axi_awsize      (            ),
-      .cl_sh_ddr_axi_awvalid     (            ),
-      .cl_sh_ddr_axi_awburst     (            ),
-      .cl_sh_ddr_axi_awuser      (            ),
-      .cl_sh_ddr_axi_awready     (            ),
-      .cl_sh_ddr_axi_wdata       (            ),
-      .cl_sh_ddr_axi_wstrb       (            ),
-      .cl_sh_ddr_axi_wlast       (            ),
-      .cl_sh_ddr_axi_wvalid      (            ),
-      .cl_sh_ddr_axi_wready      (            ),
-      .cl_sh_ddr_axi_bid         (            ),
-      .cl_sh_ddr_axi_bresp       (            ),
-      .cl_sh_ddr_axi_bvalid      (            ),
-      .cl_sh_ddr_axi_bready      (            ),
-      .cl_sh_ddr_axi_arid        (            ),
-      .cl_sh_ddr_axi_araddr      (            ),
-      .cl_sh_ddr_axi_arlen       (            ),
-      .cl_sh_ddr_axi_arsize      (            ),
-      .cl_sh_ddr_axi_arvalid     (            ),
-      .cl_sh_ddr_axi_arburst     (            ),
-      .cl_sh_ddr_axi_aruser      (            ),
-      .cl_sh_ddr_axi_arready     (            ),
-      .cl_sh_ddr_axi_rid         (            ),
-      .cl_sh_ddr_axi_rdata       (            ),
-      .cl_sh_ddr_axi_rresp       (            ),
-      .cl_sh_ddr_axi_rlast       (            ),
-      .cl_sh_ddr_axi_rvalid      (            ),
-      .cl_sh_ddr_axi_rready      (            ),
-      .sh_ddr_stat_bus_addr      (            ),
-      .sh_ddr_stat_bus_wdata     (            ),
-      .sh_ddr_stat_bus_wr        (            ),
-      .sh_ddr_stat_bus_rd        (            ),
-      .sh_ddr_stat_bus_ack       (            ),
-      .sh_ddr_stat_bus_rdata     (            ),
-      .ddr_sh_stat_int           (            ),
-      .sh_cl_ddr_is_ready        (            )
-      );
-
-  always_comb begin
-    cl_sh_ddr_stat_ack   = 'b0;
-    cl_sh_ddr_stat_rdata = 'b0;
-    cl_sh_ddr_stat_int   = 'b0;
-  end
+ 
+ `include "unused_ddr_template.inc"
 
 //=============================================================================
 // USER-DEFIEND INTERRUPTS
