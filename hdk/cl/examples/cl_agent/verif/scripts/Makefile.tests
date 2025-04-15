@@ -21,5 +21,5 @@ cl_agent_base_test: TEST=cl_agent_base_test
 cl_agent_base_test: all
 
 # Add additional tests here that are located in the $CL_DIR/verif/tests directory
-# module_name_of_new_test: TEST=module_name_of_new_test
-# module_name_of_new_test: all
+cl_agent_config_test: TEST=cl_agent_config_test
+cl_agent_config_test: all

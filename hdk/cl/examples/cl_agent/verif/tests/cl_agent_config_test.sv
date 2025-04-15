@@ -21,7 +21,7 @@ task negate_values(logic [63:0] act_data, exp_data, logic [63:0] addr);
 endtask
 
 
-module cl_agent_base_test();
+module cl_agent_config_test();
    import tb_type_defines_pkg::*;
 
    SoftwareInterfacePkg::FullAgentConfigStore store_write, store_read;
