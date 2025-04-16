@@ -102,12 +102,16 @@ module cl_agent_config_test();
     controls.row[4][1] = active_wire;
 
     for (int i=0; i<5; i++) begin
+      $display("The active wire of the target[%0d] is %0d", i, targets.row[i].position);
+      $display("The active wire of the target[%0d] is %0d", i, controls.row[i][0].position);
+      $display("The active wire of the target[%0d] is %0d", i, controls.row[i][1].position);
         store_write.configValue.configValue.shuffleWires[0][i] = targets.row[i];
         store_write.configValue.configValue.shuffleWires[1][i] = controls.row[i][0];
         store_write.configValue.configValue.shuffleWires[2][i] = controls.row[i][1];
         store_write.configValue.configValue.sampleLfsrSeeds[i] = {10'd123, 10'd123};
     end
         store_write.configValue.configValue.shuffleLfsrSeeds = {32'd74328, 32'd66844};
+     store_write.configValue.pad = 1'b0;
 
     start_addr = 64'd0;
     for (int i=1; i<=10; i++) begin
