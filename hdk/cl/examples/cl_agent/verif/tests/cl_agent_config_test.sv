@@ -86,20 +86,20 @@ module cl_agent_config_test();
     controls.row[1][1] = {0};
 
     targets.row[2] = {0};
-    controls.row[2][0] = {0};
-    controls.row[2][1] = {0};
+    controls.row[0][2] = {0};
+    controls.row[1][2] = {0};
 
     targets.row[3] = {0};
-    controls.row[3][0] = {0};
-    controls.row[3][1] = {0};
+    controls.row[0][3] = {0};
+    controls.row[1][3] = {0};
 
     targets.row[4] = {0};
     active_wire.position = 4'd7;
     active_wire.present = 1'b1;
-    controls.row[4][0] = '{position: 4'd0, present: 1'b0};
+    controls.row[0][4] = '{position: 4'd0, present: 1'b0};
     active_wire.position = 4'd3;
     active_wire.present = 1'b1;
-    controls.row[4][1] = '{position: 4'd0, present: 1'b0};
+    controls.row[1][4] = '{position: 4'd0, present: 1'b0};
 
     $display("The active wire of the target are = %x", controls.row);
 
@@ -108,8 +108,8 @@ module cl_agent_config_test();
       $display("The active wire of the control[%0d][0] is %0d", i, controls.row[i][0].position);
       $display("The active wire of the control[%0d][1] is %0d", i, controls.row[i][1].position);
         store_write.configValue.configValue.shuffleWires[0][i] = targets.row[i];
-        store_write.configValue.configValue.shuffleWires[1][i] = controls.row[i][0];
-        store_write.configValue.configValue.shuffleWires[2][i] = controls.row[i][1];
+        store_write.configValue.configValue.shuffleWires[1][i] = controls.row[0][i];
+        store_write.configValue.configValue.shuffleWires[2][i] = controls.row[1][i];
         store_write.configValue.configValue.sampleLfsrSeeds[i] = {10'd123, 10'd123};
     end
         store_write.configValue.configValue.shuffleLfsrSeeds = {32'd74328, 32'd66844};
