@@ -101,6 +101,8 @@ module cl_agent_config_test();
     active_wire.present = 1'b1;
     controls.row[4][1] = active_wire;
 
+    $display("The active wire of the target are = ", controls.row);
+
     for (int i=0; i<5; i++) begin
       $display("The active wire of the target[%0d] is %0d", i, targets.row[i].position);
       $display("The active wire of the control[%0d][0] is %0d", i, controls.row[i][0].position);
